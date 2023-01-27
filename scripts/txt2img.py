@@ -91,7 +91,7 @@ def parse_args():
     parser.add_argument(
         "--n_iter",
         type=int,
-        default=3,
+        default=1,
         help="sample this often",
     )
     parser.add_argument(
@@ -261,7 +261,7 @@ def main(opt):
                     for x_sample in x_samples:
                         x_sample = 255. * rearrange(x_sample.cpu().numpy(), 'c h w -> h w c')
                         img = Image.fromarray(x_sample.astype(np.uint8))
-                        img = put_watermark(img, wm_encoder)
+                        #img = put_watermark(img, wm_encoder)
                         img.save(os.path.join(sample_path, f"{base_count:05}.png"))
                         base_count += 1
                         sample_count += 1
