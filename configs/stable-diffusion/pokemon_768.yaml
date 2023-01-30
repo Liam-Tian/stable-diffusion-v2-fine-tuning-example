@@ -10,7 +10,7 @@ model:
     timesteps: 1000
     first_stage_key: "image"
     cond_stage_key: "txt"
-    image_size: 64
+    image_size: 96
     channels: 4
     cond_stage_trainable: false   # Note: different from the one we trained before
     conditioning_key: crossattn
@@ -90,9 +90,6 @@ data:
             params:
               size: 768
               interpolation: 3
-          - target: torchvision.transforms.RandomCrop
-            params:
-              size: 768
           - target: torchvision.transforms.RandomHorizontalFlip
     validation:
       target: ldm.data.simple.TextOnly
@@ -111,7 +108,7 @@ lightning:
 
   modelcheckpoint:
     params:
-      every_n_train_steps: 4000
+      every_n_train_steps: 844
       save_top_k: -1
       monitor: null
 
@@ -119,7 +116,7 @@ lightning:
     image_logger:
       target: main.ImageLogger
       params:
-        batch_frequency: 2000
+        batch_frequency: 211
         max_images: 4
         increase_log_steps: False
         log_first_step: True
@@ -130,10 +127,10 @@ lightning:
           plot_progressive_rows: False
           plot_diffusion_rows: False
           N: 4
-          unconditional_guidance_scale: 3.0
+          unconditional_guidance_scale: 7.5
           unconditional_guidance_label: [""]
 
   trainer:
     benchmark: True
     num_sanity_val_steps: 0
-    accumulate_grad_batches: 1
+    accumulate_grad_batches: 8
